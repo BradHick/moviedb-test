@@ -3,7 +3,7 @@ import { API_KEY, URL_DETAIL, URL_CAST } from '../const';
 
 const initialState = new Immutable({
   loading: false,
-  items:{},
+  items:[],
   error:{}
 });
 
@@ -13,7 +13,7 @@ const cast = {
     fetchCastFulfiled: (state, payload) => {
       return state.merge({
         loading: false,
-        items: state.items.concat(payload.results),
+        items: state.items.concat(payload),
         error: {}
       });
     },
@@ -40,7 +40,7 @@ const cast = {
       dispatch.cast.fetchCastPending();
       return fetch(url)
         .then(response => response.json())
-        .then(data => dispatch.cast.fetchCastFulfiled(data))
+        .then(data => dispatch.cast.fetchCastFulfiled(data.cast))
         .catch(error => dispatch.cast.fetchCastRejected(error));
     }
   })

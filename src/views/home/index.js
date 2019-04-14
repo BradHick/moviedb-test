@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import container from './container';
 import { Link } from 'react-router-dom';
+import { URL_IMG, IMG_SIZE_LARGE } from '../../const';
 import { If } from '../../component';
 
 class Home extends Component{
@@ -26,8 +27,9 @@ class Home extends Component{
         {loading && <h3>Carregando</h3>}
         <If condition={movies.length}>
           {movies.map(movie => (
-            <Link style={{ textDecoration: 'none' }} to={`movie/${movie.id}`}>
-              <h2 key={movie.id}>{movie.title}</h2>
+            <Link key={movie.id} style={{ textDecoration: 'none' }} to={`movie/${movie.id}`}>
+              <img alt='poster' src={`${URL_IMG}${IMG_SIZE_LARGE}${movie.poster_path}`}/>
+              <h2>{movie.title}</h2>
             </Link>
           ))}
 

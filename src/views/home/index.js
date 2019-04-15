@@ -4,6 +4,11 @@ import { Link } from 'react-router-dom';
 import { URL_IMG, IMG_SIZE_LARGE } from '../../const';
 import { If } from '../../component';
 
+import { CardMovie } from './components';
+
+import { Page, Navbar, Preloader, Searchbar, NavRight, Link as LinkF7 } from 'framework7-react';
+
+import moment from 'moment';
 class Home extends Component{
 
   componentWillMount(){
@@ -23,18 +28,41 @@ class Home extends Component{
       resetMovies
     } = this.props;
     return (
-      <Fragment>
-        {loading && <h3>Carregando</h3>}
+      <Page style={{ backgroundColor: '#F5F5F5' }}>
+        <Navbar
+          title='Movies DB'
+          style={{ backgroundColor: '#673AB7', color: '#FFF' }}
+        >
+          <NavRight>
+            <LinkF7
+              searchbarEnable=".searchbar"
+              iconMd="f7:search"
+              color='white'
+            />
+          </NavRight>
+          <Searchbar
+            className="searchbar"
+            expandable
+          />
+        </Navbar>
+        {loading && <Preloader />}
         <If condition={movies.length}>
           {movies.map(movie => (
             <Link key={movie.id} style={{ textDecoration: 'none' }} to={`movie/${movie.id}`}>
-              <img alt='poster' src={`${URL_IMG}${IMG_SIZE_LARGE}${movie.poster_path}`}/>
-              <h2>{movie.title}</h2>
+              <CardMovie
+                image={`${URL_IMG}${IMG_SIZE_LARGE}${movie.poster_path}`}
+                title={movie.title}
+                release={moment(movie.release_date).format('DD/MM/YYYY')}
+                description={movie.overview}
+                vote={movie.vote_average}
+                adult={movie.adult}
+                expandable
+              />
             </Link>
           ))}
-
+          
         </If>
-      </Fragment>
+      </Page>
     );
   }
 

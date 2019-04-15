@@ -1,16 +1,32 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+import Framework7 from 'framework7/framework7.esm.bundle';
+import Framework7React, { App } from 'framework7-react';
+
+import 'framework7/css/framework7.bundle.css';
+import 'framework7-icons';
 import './App.css';
+
 import Routes from './Routes';
 
-class App extends Component {
+const params = {
+  name: 'Movie DB',
+  theme: 'md',
+  touch: {
+    fastClicks: true,
+    tapHold: true,
+  }
+};
+
+Framework7.use(Framework7React);
+
+class Application extends Component {
   render() {
     return (
-      <div className="App">
+      <App className="App" params={params}>
         <Routes />
-      </div>
+      </App>
     );
   }
 }
 
-export default App;
+export default Application;

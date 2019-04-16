@@ -5,6 +5,7 @@ const initialState = new Immutable({
   loading: false,
   items:[],
   page: 1,
+  previusQuery: '',
   totalPages: 2,
   error:{}
 });
@@ -15,6 +16,7 @@ const movies = {
     fetchMoviesFulfiled: (state, payload) => {
       return state.merge({
         loading: false,
+        previusQuery: '',
         items: state.items.concat(payload.results),
         page: payload.page + 1,
         totalPages: payload.total_pages,
@@ -22,9 +24,19 @@ const movies = {
       });
     },
     searchMoviesFulfiled: (state, payload) => {
+      if(payload.increment){
+        return state.merge({
+          loading: false,
+          items: state.items.concat(payload.results),
+          page: payload.page + 1,
+          totalPages: payload.total_pages,
+          error: {}
+        });
+      }
       return state.merge({
         loading: false,
         items: payload.results,
+        previusQuery: payload.previusQuery,
         page: payload.page + 1,
         totalPages: payload.total_pages,
         error: {}
@@ -63,15 +75,26 @@ const movies = {
       }
     },
     searchMovie: (keyword, state) => {
-      const { page, totalPages } = state.movies;
+      const { page, totalPages, previusQuery } = state.movies;
+      if(keyword !== previusQuery){
+        let url = `${URL_SEARCH}${keyword}${API_KEY_ALT}&sort_by=vote_average.desc&page=${1}`;
+        if(page <= totalPages){
+          dispatch.movies.fetchMoviesPending();
+          return fetch(url)
+            .then(response => response.json())
+            .then(data => dispatch.movies.searchMoviesFulfiled({...data, increment: false, previusQuery: keyword}))
+            .catch(error => dispatch.movies.fetchMoviesRejected(error));
+        }
+      }
       let url = `${URL_SEARCH}${keyword}${API_KEY_ALT}&sort_by=vote_average.desc&page=${page}`;
       if(page <= totalPages){
         dispatch.movies.fetchMoviesPending();
         return fetch(url)
           .then(response => response.json())
-          .then(data => dispatch.movies.searchMoviesFulfiled(data))
+          .then(data => dispatch.movies.searchMoviesFulfiled({...data, increment: true}))
           .catch(error => dispatch.movies.fetchMoviesRejected(error));
       }
+
     }
   })
 };

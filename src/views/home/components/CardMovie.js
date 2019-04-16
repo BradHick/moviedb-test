@@ -10,6 +10,7 @@ const Poster = styled.img`
 const CardWrapper = styled.div`
   padding: 10px;
   display: flex;
+  max-height: 150px;
 `;
 
 const ContentWrapper = styled.div`
@@ -74,7 +75,6 @@ const CardMovie = props => (
             />
           </InfoWrapper>
         <Release>Data de lançamento: {props.release}</Release>
-        <Description className='block-with-text'>{props.description}</Description>
         {props.adult && (
           <AdultBadge>
             +18

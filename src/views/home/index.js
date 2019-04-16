@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import container from './container';
-import { URL_IMG, IMG_SIZE_LARGE } from '../../const';
-import { If } from '../../component';
 import debounce from 'lodash/debounce';
 import moment from 'moment';
+import { URL_IMG, IMG_SIZE_LARGE } from '../../const';
+import { If } from '../../component';
 
 import { CardMovie, ErrorMessage } from './components';
 
@@ -97,13 +97,12 @@ class Home extends Component{
         <If condition={movies.length}>
         <Row>
           {movies.map((movie, index) => (
-            <Col width='100' tabletWidth='25' key={`${movie.title}-${movie.id}-${index}`}>
+            <Col width='100' tabletWidth='33' desktopWidth={25} key={`${movie.title}-${movie.id}-${index}`}>
               <CardMovie
                 image={`${URL_IMG}${IMG_SIZE_LARGE}${movie.poster_path}`}
                 title={movie.title}
                 id={movie.id}
                 release={moment(movie.release_date).format('DD/MM/YYYY')}
-                description={movie.overview}
                 vote={movie.vote_average}
                 adult={movie.adult}
                 onClick={() => this.navigateMovie(movie.id)}

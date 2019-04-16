@@ -1,18 +1,17 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import styled from 'styled-components';
 
-const PosterWrapper = styled.div`
-  display: flex;
-  flex: 1;
-`;
-const PosterImg = styled.img`
 
+const PosterImg = styled.img`
+  width: 150px;
+  height: 200px;
+  border-radius: 10px;
 `;
 
 const Poster = props => (
-  <PosterWrapper>
+  <Fragment>
     <PosterImg src={props.src} />
-  </PosterWrapper>
+  </Fragment>
 );
 
 export default Poster;

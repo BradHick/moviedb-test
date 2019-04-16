@@ -99,7 +99,7 @@ class Home extends Component{
           {movies.map((movie, index) => (
             <Col width='100' tabletWidth='33' desktopWidth={25} key={`${movie.title}-${movie.id}-${index}`}>
               <CardMovie
-                image={`${URL_IMG}${IMG_SIZE_LARGE}${movie.poster_path}`}
+                image={movie.poster_path ? `${URL_IMG}${IMG_SIZE_LARGE}${movie.poster_path}` : null}
                 title={movie.title}
                 id={movie.id}
                 release={moment(movie.release_date).format('DD/MM/YYYY')}

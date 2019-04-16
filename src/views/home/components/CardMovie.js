@@ -10,7 +10,6 @@ const Poster = styled.img`
 const CardWrapper = styled.div`
   padding: 10px;
   display: flex;
-  max-height: 150px;
 `;
 
 const ContentWrapper = styled.div`

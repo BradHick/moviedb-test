@@ -33,6 +33,7 @@ This project connects to The Movie DB API and return a list of movies, where you
 * Show list of movies;
 * See a particular movie and its details;
 * infinity Scroll;
+* Responsive;
 
 
 <br>
@@ -50,7 +51,7 @@ This project connects to The Movie DB API and return a list of movies, where you
 
 **OBSERVATIONS:**
 * All the functions were implemented outside the class, aiming to keep them in the cache improving the performance instead of always recreating them when the class is instantiated;
-* The `infinityScroll`function was implemented manually to avoid the unnecessary addition of external libs;
+* The `infinityScroll`function was implemented using the Framework 7 method;
 * The Rematch framework was chosen because it has several characteristics superior to redux, such as generated action creators, async	without middlewares, simple setup and so on. See more on [Comparing Redux & Rematch
 ](https://github.com/rematch/rematch/blob/master/docs/purpose.md);
 

@@ -7,9 +7,10 @@
 3 - [Seamless-immutable](https://github.com/rtfeldman/seamless-immutable)<br>
 4 - [Moment](https://momentjs.com/)<br>
 5 - [React-Redux](https://github.com/reduxjs/react-redux)<br>
-6 - [Framework7](https://framework7.io)<br>
-7 - [Jest](https://jestjs.io/)<br>
-8 - [React](https://reactjs.org/)<br>
+6 - [Lodash](https://lodash.com/)<br>
+7 - [Framework7](https://framework7.io)<br>
+8 - [Jest](https://jestjs.io/)<br>
+9 - [React](https://reactjs.org/)<br>
 
 
 ## After you clone this project's repository, run:
@@ -55,7 +56,7 @@ This project connects to The Movie DB API and return a list of movies, where you
 
 
 
-
+<br><br><br>
 
 
 

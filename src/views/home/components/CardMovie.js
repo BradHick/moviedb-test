@@ -60,8 +60,8 @@ const AdultBadge = styled.div`
 
 const CardMovie = props => (
   <Card>
-    <CardWrapper>
-      <Poster src={props.image} />
+    <CardWrapper onClick={props.onClick}>
+      {props.image && <Poster src={props.image} />}
       <ContentWrapper>
         <InfoWrapper>
           <Title>{props.title}</Title>

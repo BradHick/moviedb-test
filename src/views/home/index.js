@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
 import container from './container';
-import { Link } from 'react-router-dom';
 import { URL_IMG, IMG_SIZE_LARGE } from '../../const';
 import { If } from '../../component';
 import debounce from 'lodash/debounce';
 import moment from 'moment';
 
-import { CardMovie } from './components';
+import { CardMovie, ErrorMessage } from './components';
 
 import { 
   Page,
@@ -21,10 +20,40 @@ import {
 
 class Home extends Component{
 
+  state ={
+    searchText: ''
+  };
+
   componentWillMount(){
     const { fetchMovies } = this.props;
     fetchMovies();
   };
+
+  changeSearch = $search => {
+    const { searchMovie, fetchMovies, resetMovies } = this.props;
+    const { value } = $search.target;
+    this.setState({ ...this.state, searchText: value });
+    if(value === ''){
+      resetMovies();
+      debounce(() => fetchMovies(), 400)();
+    }else{
+      debounce(() => searchMovie(value), 400)();
+    }
+  }
+
+  fetchMoreMovies = (moviesPage, moviesTotalPages, fetchMovies, searchMovie, resetMovies) => {
+    if ((moviesPage - 1) >= moviesTotalPages){
+      return;
+    }
+    if(this.state.searchText != ''){
+      return searchMovie(this.state.searchText);
+    }
+    return fetchMovies();
+  }
+
+  navigateMovie = movieId => {
+    this.$f7router.navigate(`/movie/${movieId}`);
+  }
 
   render(){
     const { 
@@ -38,7 +67,12 @@ class Home extends Component{
       resetMovies
     } = this.props;
     return (
-      <Page style={{ backgroundColor: '#F5F5F5' }}>
+      <Page
+        style={{ backgroundColor: '#F5F5F5' }}
+        infinite
+        infinitePreloader={(moviesPage >= moviesTotalPages)}
+        onInfinite={() => this.fetchMoreMovies(moviesPage, moviesTotalPages, fetchMovies, searchMovie, resetMovies)}
+      >
         <Navbar
           title='Movies DB'
           style={{ backgroundColor: '#673AB7', color: '#FFF' }}
@@ -52,17 +86,18 @@ class Home extends Component{
           </NavRight>
           <Searchbar
             className="searchbar"
-            // onChange={$search => debounce(() => searchMovie($search.target.value), 400)}
-            onChange={console.log('clicado')}
+            onChange={this.changeSearch}
+            clearButton={true}
+            onClickClear={() => {this.setState({...this.state, searchText: ''}); resetMovies(); fetchMovies()}}
             expandable
           />
         </Navbar>
         {loading && <Preloader />}
+        {!loading && moviesError.data && <ErrorMessage error={moviesError.data} />}
         <If condition={movies.length}>
         <Row>
-          {movies.map(movie => (
-            <Col width='100' tabletWidth='25'>
-            <Link key={movie.id} style={{ textDecoration: 'none' }} to={`movie/${movie.id}`}>
+          {movies.map((movie, index) => (
+            <Col width='100' tabletWidth='25' key={`${movie.title}-${movie.id}-${index}`}>
               <CardMovie
                 image={`${URL_IMG}${IMG_SIZE_LARGE}${movie.poster_path}`}
                 title={movie.title}
@@ -71,9 +106,8 @@ class Home extends Component{
                 description={movie.overview}
                 vote={movie.vote_average}
                 adult={movie.adult}
-                expandable
+                onClick={() => this.navigateMovie(movie.id)}
               />
-            </Link>
             </Col>
           ))}
         </Row>

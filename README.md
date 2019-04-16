@@ -1,3 +1,77 @@
+
+
+## Libs used on this project
+
+1 - [Rematch](https://github.com/rematch/rematch?target=_blank)<br>
+2 - [Styled-components](https://github.com/styled-components/styled-components)<br>
+3 - [Seamless-immutable](https://github.com/rtfeldman/seamless-immutable)<br>
+4 - [Moment](https://momentjs.com/)<br>
+5 - [React-Redux](https://github.com/reduxjs/react-redux)<br>
+6 - [Framework7](https://framework7.io)<br>
+7 - [Jest](https://jestjs.io/)<br>
+8 - [React](https://reactjs.org/)<br>
+
+
+## After you clone this project's repository, run:
+
+**`npm install`** <br>
+To install all dependencies;
+<br><br>
+**`npm run test`** <br>
+To run the tests;
+<br><br>
+**`expo start`** <br>
+To init the application.<br>
+<br>
+
+## The project
+
+This project connects to The Movie DB API and return a list of movies, where you can see each movie detail <br>
+
+**FEATURES:**
+* Show list of movies;
+* See a particular movie and its details;
+* infinity Scroll;
+
+
+<br>
+
+
+**TESTS:**
+* Verify if fetch is fullfiled;
+* Verify if movies list is beeing reseted;
+* Verify if a movie is beeing reseted;
+* Verify erros during fetch movies list;
+* Verify erros during fetch an individual movie;
+
+
+<br>
+
+**OBSERVATIONS:**
+* All the functions were implemented outside the class, aiming to keep them in the cache improving the performance instead of always recreating them when the class is instantiated;
+* The `infinityScroll`function was implemented manually to avoid the unnecessary addition of external libs;
+* The Rematch framework was chosen because it has several characteristics superior to redux, such as generated action creators, async	without middlewares, simple setup and so on. See more on [Comparing Redux & Rematch
+](https://github.com/rematch/rematch/blob/master/docs/purpose.md);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts

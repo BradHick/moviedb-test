@@ -1,31 +1,87 @@
 import React from 'react';
-
+import styled from 'styled-components';
 import { Card, Icon } from 'framework7-react';
 
+const Poster = styled.img`
+  height: 150px;
+  border-radius: 5px;
+`;
+
+const CardWrapper = styled.div`
+  padding: 10px;
+  display: flex;
+`;
+
+const ContentWrapper = styled.div`
+  padding-left: 10px;
+`;
+
+const InfoWrapper = styled.div`
+  display: flex;
+  align-items: center;
+`;
+
+const Title = styled.h2`
+  flex: 1px;
+  margin: 0;
+  color: #404040;
+  text-align: left;
+`;
+
+const Vote = styled.span`
+  font-size: 22px;
+  color: #D0D0D0;
+  font-weight: bold;
+  margin-right: 5px;
+`;
+
+const Release = styled.p`
+  color: #D1D1D1;
+  margin: 0;
+  text-align: left;
+`;
+
+const Description = styled.p`
+  color: #919191;
+  margin: 0;
+  margin-top: 10px;
+  text-align: left;
+`;
+
+const AdultBadge = styled.div`
+  background-color: #EF53504F;
+  padding: 3px;
+  margin-top: 10px;
+  border-radius: 5px;
+  width: 30px;
+  color: #B71C1C;
+  font-weight: bold;
+`;
+
 const CardMovie = props => (
-  <Card expandable>
-    <div style={{ padding: 10, display: 'flex' }}>
-      <img src={props.image} style={{ height: 150, borderRadius: 5 }} />
-      <div style={{ paddingLeft: 10 }}>
-        <div style={{ display: 'flex', alignItems: 'center' }}>
-          <h2 style={{ flex: 1, margin: 0, color: '#404040', textAlign: 'left' }}>{props.title}</h2>
-          <div style={{ display: 'flex', alignItems: 'center' }}>
-            <span style={{ fontSize: 22, color: '#D0D0D0', fontWeight: 'bold', marginRight: 5 }}>{props.vote}</span>
+  <Card>
+    <CardWrapper>
+      <Poster src={props.image} />
+      <ContentWrapper>
+        <InfoWrapper>
+          <Title>{props.title}</Title>
+        </InfoWrapper>
+          <InfoWrapper>
+            <Vote>{props.vote}</Vote>
             <Icon
               f7='star_fill'
               color='yellow'
             />
-          </div>
-        </div>
-        <p style={{ color: '#D1D1D1', margin: 0, textAlign: 'left' }}>Data de lançamento: {props.release}</p>
-        <p className='block-with-text' style={{ color: '#919191', margin: 0, marginTop: 10, textAlign: 'left' }}>{props.description}</p>
+          </InfoWrapper>
+        <Release>Data de lançamento: {props.release}</Release>
+        <Description className='block-with-text'>{props.description}</Description>
         {props.adult && (
-          <div style={{ backgroundColor: '#EF53504F', padding: 3, marginTop: 10, borderRadius: 5, width: 30, color: '#B71C1C', fontWeight: 'bold'  }}>
+          <AdultBadge>
             +18
-          </div>
+          </AdultBadge>
         )}
-      </div>
-    </div>
+      </ContentWrapper>
+    </CardWrapper>
   </Card>
 );
 

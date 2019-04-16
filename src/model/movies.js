@@ -21,6 +21,15 @@ const movies = {
         error: {}
       });
     },
+    searchMoviesFulfiled: (state, payload) => {
+      return state.merge({
+        loading: false,
+        items: payload.results,
+        page: payload.page + 1,
+        totalPages: payload.total_pages,
+        error: {}
+      });
+    },
     fetchMoviesPending: (state) => {
       return state.merge({
         loading: true
@@ -60,7 +69,7 @@ const movies = {
         dispatch.movies.fetchMoviesPending();
         return fetch(url)
           .then(response => response.json())
-          .then(data => dispatch.movies.fetchMoviesFulfiled(data))
+          .then(data => dispatch.movies.searchMoviesFulfiled(data))
           .catch(error => dispatch.movies.fetchMoviesRejected(error));
       }
     }

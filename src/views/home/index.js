@@ -1,14 +1,24 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import container from './container';
 import { Link } from 'react-router-dom';
 import { URL_IMG, IMG_SIZE_LARGE } from '../../const';
 import { If } from '../../component';
+import debounce from 'lodash/debounce';
+import moment from 'moment';
 
 import { CardMovie } from './components';
 
-import { Page, Navbar, Preloader, Searchbar, NavRight, Link as LinkF7 } from 'framework7-react';
+import { 
+  Page,
+  Navbar,
+  Preloader,
+  Col,
+  Row,
+  Searchbar,
+  NavRight,
+  Link as LinkF7
+} from 'framework7-react';
 
-import moment from 'moment';
 class Home extends Component{
 
   componentWillMount(){
@@ -42,16 +52,21 @@ class Home extends Component{
           </NavRight>
           <Searchbar
             className="searchbar"
+            // onChange={$search => debounce(() => searchMovie($search.target.value), 400)}
+            onChange={console.log('clicado')}
             expandable
           />
         </Navbar>
         {loading && <Preloader />}
         <If condition={movies.length}>
+        <Row>
           {movies.map(movie => (
+            <Col width='100' tabletWidth='25'>
             <Link key={movie.id} style={{ textDecoration: 'none' }} to={`movie/${movie.id}`}>
               <CardMovie
                 image={`${URL_IMG}${IMG_SIZE_LARGE}${movie.poster_path}`}
                 title={movie.title}
+                id={movie.id}
                 release={moment(movie.release_date).format('DD/MM/YYYY')}
                 description={movie.overview}
                 vote={movie.vote_average}
@@ -59,7 +74,9 @@ class Home extends Component{
                 expandable
               />
             </Link>
+            </Col>
           ))}
+        </Row>
           
         </If>
       </Page>
